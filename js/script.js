@@ -1,89 +1,78 @@
 // Theme Toggle Functionality
 document.addEventListener("DOMContentLoaded", function () {
   const themeToggle = document.getElementById("themeToggle");
-  const backToTop = document.getElementById("backToTop");
   const body = document.body;
+  const icon = themeToggle.querySelector("i");
 
   // Check for saved theme preference or default to light
   const currentTheme = localStorage.getItem("theme") || "light";
   if (currentTheme === "dark") {
     body.setAttribute("data-theme", "dark");
-    themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+    icon.classList.remove("fa-moon");
+    icon.classList.add("fa-sun");
   }
 
   // Toggle theme
   themeToggle.addEventListener("click", function () {
     if (body.getAttribute("data-theme") === "dark") {
       body.removeAttribute("data-theme");
-      themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
+      icon.classList.remove("fa-sun");
+      icon.classList.add("fa-moon");
       localStorage.setItem("theme", "light");
     } else {
       body.setAttribute("data-theme", "dark");
-      themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
+      icon.classList.remove("fa-moon");
+      icon.classList.add("fa-sun");
       localStorage.setItem("theme", "dark");
     }
   });
 
   // Back to top functionality
+  const backToTop = document.getElementById("backToTop");
+
   window.addEventListener("scroll", function () {
     if (window.pageYOffset > 300) {
-      backToTop.style.display = "flex";
+      backToTop.classList.add("active");
     } else {
-      backToTop.style.display = "none";
+      backToTop.classList.remove("active");
     }
   });
 
-  backToTop.addEventListener("click", function () {
+  backToTop.addEventListener("click", function (e) {
+    e.preventDefault();
     window.scrollTo({
       top: 0,
       behavior: "smooth",
     });
   });
 
-  // Smooth scrolling for anchor links
-  document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener("click", function (e) {
-      e.preventDefault();
+  // Add animation to elements on scroll
+  const animateOnScroll = function () {
+    const elements = document.querySelectorAll(
+      ".service-card, .testimonial-card, .blog-card"
+    );
 
-      const targetId = this.getAttribute("href");
-      if (targetId === "#") return;
+    elements.forEach((element) => {
+      const elementPosition = element.getBoundingClientRect().top;
+      const screenPosition = window.innerHeight / 1.2;
 
-      const targetElement = document.querySelector(targetId);
-      if (targetElement) {
-        window.scrollTo({
-          top: targetElement.offsetTop - 70,
-          behavior: "smooth",
-        });
+      if (elementPosition < screenPosition) {
+        element.style.opacity = "1";
+        element.style.transform = "translateY(0)";
       }
     });
-  });
-
-  // Add animation to service boxes on scroll
-  const observerOptions = {
-    threshold: 0.1,
-    rootMargin: "0px 0px -50px 0px",
   };
 
-  const observer = new IntersectionObserver(function (entries) {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.style.opacity = "1";
-        entry.target.style.transform = "translateY(0)";
-      }
+  // Set initial state for animation
+  document
+    .querySelectorAll(".service-card, .testimonial-card, .blog-card")
+    .forEach((element) => {
+      element.style.opacity = "0";
+      element.style.transform = "translateY(20px)";
+      element.style.transition = "opacity 0.5s ease, transform 0.5s ease";
     });
-  }, observerOptions);
-  // Observe service boxes
-  document.querySelectorAll(".service-box").forEach((box) => {
-    box.style.opacity = "0";
-    box.style.transform = "translateY(20px)";
-    box.style.transition = "opacity 0.5s ease, transform 0.5s ease";
-    observer.observe(box);
-  });
-  // Observe news posts
-  document.querySelectorAll(".news-post").forEach((post) => {
-    post.style.opacity = "0";
-    post.style.transform = "translateY(20px)";
-    post.style.transition = "opacity 0.5s ease, transform 0.5s ease";
-    observer.observe(post);
-  });
+
+  window.addEventListener("scroll", animateOnScroll);
+  // Initial check
+  animateOnScroll();
 });
