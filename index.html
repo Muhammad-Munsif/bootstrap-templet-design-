@@ -935,7 +935,6 @@
             }
           });
         }, observerOptions);
-
         // Observe service boxes
         document.querySelectorAll(".service-box").forEach((box) => {
           box.style.opacity = "0";
@@ -943,7 +942,6 @@
           box.style.transition = "opacity 0.5s ease, transform 0.5s ease";
           observer.observe(box);
         });
-
         // Observe news posts
         document.querySelectorAll(".news-post").forEach((post) => {
           post.style.opacity = "0";
