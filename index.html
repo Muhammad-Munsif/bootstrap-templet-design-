@@ -115,7 +115,7 @@
       }
 
       #banner::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
@@ -175,7 +175,7 @@
       }
 
       #testimonials::before {
-        content: '';
+        content: "";
         position: absolute;
         top: 0;
         left: 0;
@@ -428,40 +428,40 @@
         #logo {
           margin: 10px 0;
         }
-        
+
         #menu {
           text-align: center;
         }
-        
+
         .banner-title {
           padding-top: 0;
         }
-        
+
         .banner-title h1 {
           font-size: 1.7rem;
         }
-        
+
         .section {
           padding: 40px 20px;
         }
-        
+
         .testimonial {
           text-align: center;
           margin-bottom: 30px;
         }
-        
+
         .service-box {
           margin-bottom: 30px;
         }
-        
+
         .footer-widget {
           margin-bottom: 20px;
         }
-        
+
         #footer {
           text-align: center;
         }
-        
+
         #social-icons {
           margin-top: 10px;
         }
@@ -473,18 +473,19 @@
           margin: 10px 0;
           font-size: 1.5rem;
         }
-        
+
         .testimonial p {
           text-align: left;
         }
-        
-        .theme-toggle, .back-to-top {
+
+        .theme-toggle,
+        .back-to-top {
           width: 40px;
           height: 40px;
           bottom: 15px;
           right: 15px;
         }
-        
+
         .back-to-top {
           bottom: 65px;
         }
@@ -504,7 +505,9 @@
 
     <!-- Header Section -->
     <div id="header">
-      <div class="container-fluid d-flex justify-content-flex-end align-items-center">
+      <div
+        class="container-fluid d-flex justify-content-flex-end align-items-center"
+      >
         <div class="col-sm-4 col-md-4">
           <h1 id="logo">Company</h1>
         </div>
@@ -518,7 +521,9 @@
                   data-toggle="collapse"
                   data-target="#myid"
                 >
-                  <span class="navbar-toggler-icon"><i class="fas fa-bars"></i></span>
+                  <span class="navbar-toggler-icon"
+                    ><i class="fas fa-bars"></i
+                  ></span>
                 </button>
                 <div class="collapse navbar-collapse float-md-right" id="myid">
                   <ul id="menu" class="navbar-nav ml-auto">
@@ -832,19 +837,13 @@
               class="float-md-right d-flex justify-content-flex-end align-items-center gap-4"
             >
               <li>
-                <a href="#"
-                  ><i class="fab fa-facebook-f"></i
-                ></a>
+                <a href="#"><i class="fab fa-facebook-f"></i></a>
               </li>
               <li>
-                <a href="#"
-                  ><i class="fab fa-twitter"></i
-                ></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
               </li>
               <li>
-                <a href="#"
-                  ><i class="fab fa-instagram"></i
-                ></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
               </li>
             </ul>
           </div>
@@ -863,93 +862,93 @@
     <!-- Custom JavaScript -->
     <script>
       // Theme Toggle Functionality
-      document.addEventListener('DOMContentLoaded', function() {
-        const themeToggle = document.getElementById('themeToggle');
-        const backToTop = document.getElementById('backToTop');
+      document.addEventListener("DOMContentLoaded", function () {
+        const themeToggle = document.getElementById("themeToggle");
+        const backToTop = document.getElementById("backToTop");
         const body = document.body;
-        
+
         // Check for saved theme preference or default to light
-        const currentTheme = localStorage.getItem('theme') || 'light';
-        if (currentTheme === 'dark') {
-          body.setAttribute('data-theme', 'dark');
+        const currentTheme = localStorage.getItem("theme") || "light";
+        if (currentTheme === "dark") {
+          body.setAttribute("data-theme", "dark");
           themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
         }
-        
+
         // Toggle theme
-        themeToggle.addEventListener('click', function() {
-          if (body.getAttribute('data-theme') === 'dark') {
-            body.removeAttribute('data-theme');
+        themeToggle.addEventListener("click", function () {
+          if (body.getAttribute("data-theme") === "dark") {
+            body.removeAttribute("data-theme");
             themeToggle.innerHTML = '<i class="fas fa-moon"></i>';
-            localStorage.setItem('theme', 'light');
+            localStorage.setItem("theme", "light");
           } else {
-            body.setAttribute('data-theme', 'dark');
+            body.setAttribute("data-theme", "dark");
             themeToggle.innerHTML = '<i class="fas fa-sun"></i>';
-            localStorage.setItem('theme', 'dark');
+            localStorage.setItem("theme", "dark");
           }
         });
-        
+
         // Back to top functionality
-        window.addEventListener('scroll', function() {
+        window.addEventListener("scroll", function () {
           if (window.pageYOffset > 300) {
-            backToTop.style.display = 'flex';
+            backToTop.style.display = "flex";
           } else {
-            backToTop.style.display = 'none';
+            backToTop.style.display = "none";
           }
         });
-        
-        backToTop.addEventListener('click', function() {
+
+        backToTop.addEventListener("click", function () {
           window.scrollTo({
             top: 0,
-            behavior: 'smooth'
+            behavior: "smooth",
           });
         });
-        
+
         // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-          anchor.addEventListener('click', function(e) {
+        document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+          anchor.addEventListener("click", function (e) {
             e.preventDefault();
-            
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
+
+            const targetId = this.getAttribute("href");
+            if (targetId === "#") return;
+
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
               window.scrollTo({
                 top: targetElement.offsetTop - 70,
-                behavior: 'smooth'
+                behavior: "smooth",
               });
             }
           });
         });
-        
+
         // Add animation to service boxes on scroll
         const observerOptions = {
           threshold: 0.1,
-          rootMargin: '0px 0px -50px 0px'
+          rootMargin: "0px 0px -50px 0px",
         };
-        
-        const observer = new IntersectionObserver(function(entries) {
-          entries.forEach(entry => {
+
+        const observer = new IntersectionObserver(function (entries) {
+          entries.forEach((entry) => {
             if (entry.isIntersecting) {
-              entry.target.style.opacity = '1';
-              entry.target.style.transform = 'translateY(0)';
+              entry.target.style.opacity = "1";
+              entry.target.style.transform = "translateY(0)";
             }
           });
         }, observerOptions);
-        
+
         // Observe service boxes
-        document.querySelectorAll('.service-box').forEach(box => {
-          box.style.opacity = '0';
-          box.style.transform = 'translateY(20px)';
-          box.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        document.querySelectorAll(".service-box").forEach((box) => {
+          box.style.opacity = "0";
+          box.style.transform = "translateY(20px)";
+          box.style.transition = "opacity 0.5s ease, transform 0.5s ease";
           observer.observe(box);
         });
-        
+
         // Observe news posts
-        document.querySelectorAll('.news-post').forEach(post => {
-          post.style.opacity = '0';
-          post.style.transform = 'translateY(20px)';
-          post.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        document.querySelectorAll(".news-post").forEach((post) => {
+          post.style.opacity = "0";
+          post.style.transform = "translateY(20px)";
+          post.style.transition = "opacity 0.5s ease, transform 0.5s ease";
           observer.observe(post);
         });
       });
