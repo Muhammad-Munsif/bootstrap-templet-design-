@@ -68,58 +68,71 @@ document.addEventListener("DOMContentLoaded", function () {
 
   // Animated number counting for stats
   const statNumbers = document.querySelectorAll(".stat-number");
-  const observerOptions = {
-    threshold: 0.5,
-  };
+  if ("IntersectionObserver" in window) {
+    const observerOptions = {
+      threshold: 0.5,
+    };
 
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        const element = entry.target;
-        const finalValue = parseInt(element.getAttribute("data-count"));
-        const duration = 2000; // 2 seconds
-        const step = finalValue / (duration / 16); // 60fps
-        let currentValue = 0;
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          const element = entry.target;
+          const finalValue = parseInt(element.getAttribute("data-count"));
+          const duration = 2000; // 2 seconds
+          const step = finalValue / (duration / 16); // 60fps
+          let currentValue = 0;
 
-        const timer = setInterval(() => {
-          currentValue += step;
-          if (currentValue >= finalValue) {
-            element.textContent = finalValue;
-            clearInterval(timer);
-          } else {
-            element.textContent = Math.floor(currentValue);
-          }
-        }, 16);
+          const timer = setInterval(() => {
+            currentValue += step;
+            if (currentValue >= finalValue) {
+              element.textContent = finalValue;
+              clearInterval(timer);
+            } else {
+              element.textContent = Math.floor(currentValue);
+            }
+          }, 16);
 
-        observer.unobserve(element);
-      }
+          observer.unobserve(element);
+        }
+      });
+    }, observerOptions);
+
+    statNumbers.forEach((number) => {
+      observer.observe(number);
     });
-  }, observerOptions);
-
-  statNumbers.forEach((number) => {
-    observer.observe(number);
-  });
+  } else {
+    statNumbers.forEach((element) => {
+      const finalValue = parseInt(element.getAttribute("data-count"));
+      if (!Number.isNaN(finalValue)) element.textContent = String(finalValue);
+    });
+  }
 
   // Fade-in animation on scroll
   const fadeElements = document.querySelectorAll(".fade-in");
-  const fadeObserver = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("visible");
-          fadeObserver.unobserve(entry.target);
-        }
-      });
-    },
-    {
-      threshold: 0.1,
-      rootMargin: "0px 0px -50px 0px",
-    },
-  );
+  if ("IntersectionObserver" in window) {
+    const fadeObserver = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("visible");
+            fadeObserver.unobserve(entry.target);
+          }
+        });
+      },
+      {
+        threshold: 0.1,
+        rootMargin: "0px 0px -50px 0px",
+      },
+    );
 
-  fadeElements.forEach((element) => {
-    fadeObserver.observe(element);
-  });
+    fadeElements.forEach((element) => {
+      fadeObserver.observe(element);
+    });
+  } else {
+    fadeElements.forEach((element) => {
+      element.classList.add("visible");
+    });
+  }
 
   // Smooth scroll for navigation links
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
